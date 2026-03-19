@@ -28,18 +28,19 @@ public class SimpleGame implements ApplicationListener {
     float dropTimer;
     Rectangle bucketRectangle;
     Rectangle dropRectangle;
-
+    int j = 1;
     @Override
     public void create() {
+        
         backgroundTexture = new Texture("assets/background.png");
-        bucketTexture = new Texture("assets/bucket.png");
+        bucketTexture = new Texture("assets/drop.png");
         dropTexture = new Texture("assets/drop.png");
         
         dropSound = Gdx.audio.newSound(Gdx.files.internal("assets/drop.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("assets/music.mp3"));
         
         spriteBatch = new SpriteBatch();
-        viewport = new FitViewport(8, 5);
+        viewport = new FitViewport(80, 50);
         
         bucketSprite = new Sprite(bucketTexture);
         bucketSprite.setSize(1, 1);
@@ -69,7 +70,7 @@ public class SimpleGame implements ApplicationListener {
     }
 
     private void input() {
-        float speed = 4f;
+        float speed = 40f;
         float delta = Gdx.graphics.getDeltaTime();
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -108,6 +109,8 @@ public class SimpleGame implements ApplicationListener {
             else if (bucketRectangle.overlaps(dropRectangle)) {
                 dropSprites.remove(i);
                 dropSound.play();
+                bucketSprite.setSize(1+j, 1+j);
+                j++;
             }
         }
 
